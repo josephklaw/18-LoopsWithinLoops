@@ -3,8 +3,8 @@ This project demonstrates NESTED LOOPS (i.e., loops within loops)
 in the context of TWO-DIMENSIONAL GRAPHICS.
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Joseph Law.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
@@ -80,9 +80,37 @@ def draw_L(window, circle, r, c):
     and m and n are small, positive integers.
     """
     # ------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # DONE: 2. Implement and test this function.
     #     The testing code is already written for you (above).
     # ------------------------------------------------------------------
+    ogx = circle.center.x
+    ogy = circle.center.y
+    color = circle.fill_color
+    rad = circle.radius
+    x = ogx
+    y = ogy
+    for k in range(r+1):
+        x = ogx
+        for j in range(3):
+            circle = rg.Circle(rg.Point(x,y),rad)
+            circle.fill_color = color
+            circle.attach_to(window)
+            window.render(0.1)
+            x = ogx + 2*rad*(j+1)
+        y = ogy + 2*rad*k
+    ogy2 = y
+    for k in range(3):
+        x = ogx
+        for j in range(c+3):
+            circle = rg.Circle(rg.Point(x,y),rad)
+            circle.fill_color = color
+            circle.attach_to(window)
+            window.render(0.1)
+            x = ogx + 2 * rad * (j + 1)
+        y = ogy2 + 2*rad*(k+1)
+
+
+
 
 
 def run_test_draw_wall_on_right():
@@ -121,9 +149,31 @@ def draw_wall_on_right(rectangle, n, window):
     and n is a small, positive integer.
     """
     # ------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # DONE: 3. Implement and test this function.
     #     The testing code is already written for you (above).
     # ------------------------------------------------------------------
+    ogxtr = rectangle.get_upper_right_corner().x
+    ogytr = rectangle.get_upper_right_corner().y
+    ogxbl = rectangle.get_lower_left_corner().x
+    ogybl = rectangle.get_lower_left_corner().y
+    xtr = ogxtr
+    ytr = ogytr
+    xbl = ogxbl
+    ybl = ogybl
+    width = rectangle.get_width()
+    height = rectangle.get_height()
+    for k in range(n):
+        for j in range(k+1):
+            xtr = ogxtr - j * width
+            xbl = ogxbl - j * width
+            tr = rg.Point(xtr,ytr)
+            bl = rg.Point(xbl,ybl)
+            rect = rg.Rectangle(tr,bl)
+            rect.attach_to(window)
+            window.render(0.1)
+        ytr = ogytr + (k+1)*height
+        ybl = ogybl + (k+1)*height
+
 
 
 # ----------------------------------------------------------------------
